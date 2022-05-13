@@ -57,13 +57,25 @@ La mayoría de las veces se utilizan diversos archivos a la hora de crear un pro
 > Referencia: [¿Que es un linker?](https://ia-notes.com/2021/05/24/que-es-el-linker/)
 
 ### ¿Que es la dirección que aparece en el script del linker?¿Porqué es necesaria? 
-Es donde la BIOS va a estar colocando el codigo fuente de ese ejecutable. Tengo entendido que el linker calcula la direccion donde colocarla, y esa resulta ser la primera posicion donde colocar el programa para que sea lo primero en ejecutarse << **CHEQUEAR**>>
+Es donde la BIOS va a estar colocando el codigo fuente de ese ejecutable. Tengo entendido que el linker calcula la direccion donde colocarla, y esa resulta ser la primera posicion donde colocar el programa para que sea lo primero en ejecutarse << **CHEQUEAR** >>
 
-### Compare la salida de objdump con hd, verifique donde fue colocado el programa dentro de la imagen.
+### Compare la salida de objdump con hd, verifique donde fue colocado el programa dentro de la imagen. << **EN LA PC LO HAGO** >>
 
-### Grabar la imagen en un pendrive y probarla en una pc y subir una foto
+### Grabar la imagen en un pendrive y probarla en una pc y subir una foto << **EN LA PC LO HAGO** >>
 
 ### ¿Para que se utiliza la opción --oformat binary en el linker?
+> *--oformat=output-format*
+> 
+> *ld* may be configured to support more than one kind of object file. **If your *ld* is configured this way, you can use the --oformat option to specify the binary format for the output object file.** Even when *ld* is configured to support alternative object formats, you don't usually need to specify this, as *ld* should be configured to produce as a default output format the most usual format on each machine. output-format is a text string, the name of a particular format supported by the BFD libraries. (You can list the available binary formats with objdump -i.) The script command "OUTPUT_FORMAT" can also specify the output format, but this option overrides it.
 
+Es decir, es posible especificar el formato de salida del archivo, en particular, a binario. 
 
 ---
+## Desafío final: Modo protegido (Parte practica)
+### Crear un código assembler que pueda pasar a modo protegido (sin macros).
+
+### ¿Cómo sería un programa que tenga dos descriptores de memoria diferentes, uno para cada segmento (código y datos) en espacios de memoria diferenciados?
+
+### Cambiar los bits de acceso del segmento de datos para que sea de solo lectura, intentar escribir, ¿Que sucede? ¿Que debería suceder a continuación? (revisar el teórico) Verificarlo con gdb.
+
+### En modo protegido, ¿Con qué valor se cargan los registros de segmento? ¿Porque? 
