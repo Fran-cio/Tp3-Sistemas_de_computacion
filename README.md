@@ -47,3 +47,23 @@ Esta es cargar casi cualquier sistema operativo, y tiene la caracteristica de se
 
 
 ---
+
+## Desafío: Linker
+### ¿Que es un linker? ¿que hace?
+A grandes rasgos, el linker es el programa encargado de tomar todos los archivos *objeto* (.o) generados por el **compilador** (o ya presentes en una biblioteca), combinarlos y crear un *ejecutable*.
+
+La mayoría de las veces se utilizan diversos archivos a la hora de crear un programa. Esto es lo mismo que decir que un programa de ordenador está compuesto por diferentes **módulos**. Cada uno de estos módulos se compila de forma independiente y dispone de una referencia simbólica. Así pues, una vez compilados, el linker podrá crear un "único" archivo, unificando todos los archivos objeto gracias a sus referencias simbólicas.
+
+> Referencia: [¿Que es un linker?](https://ia-notes.com/2021/05/24/que-es-el-linker/)
+
+### ¿Que es la dirección que aparece en el script del linker?¿Porqué es necesaria? 
+Es donde la BIOS va a estar colocando el codigo fuente de ese ejecutable. Tengo entendido que el linker calcula la direccion donde colocarla, y esa resulta ser la primera posicion donde colocar el programa para que sea lo primero en ejecutarse << **CHEQUEAR**>>
+
+### Compare la salida de objdump con hd, verifique donde fue colocado el programa dentro de la imagen.
+
+### Grabar la imagen en un pendrive y probarla en una pc y subir una foto
+
+### ¿Para que se utiliza la opción --oformat binary en el linker?
+
+
+---
