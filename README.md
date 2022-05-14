@@ -69,9 +69,92 @@ Los motivos por los cuales se decidió esa posición en su momento fueron:
  
 > Referencia: [What memory is impacted using the location counter in linker script?](https://stackoverflow.com/questions/59881880/what-memory-is-impacted-using-the-location-counter-in-linker-script)
 
-### Compare la salida de objdump con hd, verifique donde fue colocado el programa dentro de la imagen. << **EN LA PC LO HAGO** >>
+### Compare la salida de objdump con hd, verifique donde fue colocado el programa dentro de la imagen.
+```
+❯ objdump -s main.o
+
+main.o:     formato del fichero elf64-x86-64
+
+Contenido de la sección .text:
+ 0000 be0000b4 0eac08c0 7404cd10 ebf7f468  ........t......h
+ 0010 656c6c6f 20776f72 6c6400             ello world.     
+Contenido de la sección .note.gnu.property:
+ 0000 04000000 20000000 05000000 474e5500  .... .......GNU.
+ 0010 020001c0 04000000 00000000 00000000  ................
+ 0020 010001c0 04000000 01000000 00000000  ................
+Contenido de la sección .debug_line:
+ 0000 3b000000 03001d00 00000101 fb0e0d00  ;...............
+ 0010 01010101 00000001 00000100 6d61696e  ............main
+ 0020 2e530000 00000000 09020000 00000000  .S..............
+ 0030 0000133d 30212f2f 2f30020d 000101    ...=0!///0..... 
+Contenido de la sección .debug_info:
+ 0000 2a000000 02000000 00000801 00000000  *...............
+ 0010 00000000 00000000 00000000 00000000  ................
+ 0020 00000000 00000000 00000000 0180      ..............  
+Contenido de la sección .debug_abbrev:
+ 0000 01110010 06110112 01030e1b 0e250e13  .............%..
+ 0010 05000000                             ....            
+Contenido de la sección .debug_aranges:
+ 0000 01000000 00000000 30000000 00000000  ........0.......
+ 0010 10000000 00000000 789cd361 60606062  ........x..a```b
+ 0020 00010e06 6420cd80 1d00000c 800052    ....d ........R 
+Contenido de la sección .debug_str:
+ 0000 6d61696e 2e53002f 686f6d65 2f667261  main.S./home/fra
+ 0010 6e63696f 2f446f63 756d656e 746f732f  ncio/Documentos/
+ 0020 43756174 72695f31 2f536973 74656d61  Cuatri_1/Sistema
+ 0030 735f4465 5f436f6d 70757461 63696f6e  s_De_Computacion
+ 0040 2f547073 2f547033 2f526570 6f5f7072  /Tps/Tp3/Repo_pr
+ 0050 6f66652f 30314865 6c6c6f57 6f726c64  ofe/01HelloWorld
+ 0060 00474e55 20415320 322e3338 00        .GNU AS 2.38.   
+
+❯ hexdump -C main.img
+00000000  be 0f 7c b4 0e ac 08 c0  74 04 cd 10 eb f7 f4 68  |..|.....t......h|
+00000010  65 6c 6c 6f 20 77 6f 72  6c 64 00 66 2e 0f 1f 84  |ello world.f....|
+00000020  00 00 00 00 00 66 2e 0f  1f 84 00 00 00 00 00 66  |.....f.........f|
+00000030  2e 0f 1f 84 00 00 00 00  00 66 2e 0f 1f 84 00 00  |.........f......|
+00000040  00 00 00 66 2e 0f 1f 84  00 00 00 00 00 66 2e 0f  |...f.........f..|
+00000050  1f 84 00 00 00 00 00 66  2e 0f 1f 84 00 00 00 00  |.......f........|
+00000060  00 66 2e 0f 1f 84 00 00  00 00 00 66 2e 0f 1f 84  |.f.........f....|
+00000070  00 00 00 00 00 66 2e 0f  1f 84 00 00 00 00 00 66  |.....f.........f|
+00000080  2e 0f 1f 84 00 00 00 00  00 66 2e 0f 1f 84 00 00  |.........f......|
+00000090  00 00 00 66 2e 0f 1f 84  00 00 00 00 00 66 2e 0f  |...f.........f..|
+000000a0  1f 84 00 00 00 00 00 66  2e 0f 1f 84 00 00 00 00  |.......f........|
+000000b0  00 66 2e 0f 1f 84 00 00  00 00 00 66 2e 0f 1f 84  |.f.........f....|
+000000c0  00 00 00 00 00 66 2e 0f  1f 84 00 00 00 00 00 66  |.....f.........f|
+000000d0  2e 0f 1f 84 00 00 00 00  00 66 2e 0f 1f 84 00 00  |.........f......|
+000000e0  00 00 00 66 2e 0f 1f 84  00 00 00 00 00 66 2e 0f  |...f.........f..|
+000000f0  1f 84 00 00 00 00 00 66  2e 0f 1f 84 00 00 00 00  |.......f........|
+00000100  00 66 2e 0f 1f 84 00 00  00 00 00 66 2e 0f 1f 84  |.f.........f....|
+00000110  00 00 00 00 00 66 2e 0f  1f 84 00 00 00 00 00 66  |.....f.........f|
+00000120  2e 0f 1f 84 00 00 00 00  00 66 2e 0f 1f 84 00 00  |.........f......|
+00000130  00 00 00 66 2e 0f 1f 84  00 00 00 00 00 66 2e 0f  |...f.........f..|
+00000140  1f 84 00 00 00 00 00 66  2e 0f 1f 84 00 00 00 00  |.......f........|
+00000150  00 66 2e 0f 1f 84 00 00  00 00 00 66 2e 0f 1f 84  |.f.........f....|
+00000160  00 00 00 00 00 66 2e 0f  1f 84 00 00 00 00 00 66  |.....f.........f|
+00000170  2e 0f 1f 84 00 00 00 00  00 66 2e 0f 1f 84 00 00  |.........f......|
+00000180  00 00 00 66 2e 0f 1f 84  00 00 00 00 00 66 2e 0f  |...f.........f..|
+00000190  1f 84 00 00 00 00 00 66  2e 0f 1f 84 00 00 00 00  |.......f........|
+000001a0  00 66 2e 0f 1f 84 00 00  00 00 00 66 2e 0f 1f 84  |.f.........f....|
+000001b0  00 00 00 00 00 66 2e 0f  1f 84 00 00 00 00 00 66  |.....f.........f|
+000001c0  2e 0f 1f 84 00 00 00 00  00 66 2e 0f 1f 84 00 00  |.........f......|
+000001d0  00 00 00 66 2e 0f 1f 84  00 00 00 00 00 66 2e 0f  |...f.........f..|
+000001e0  1f 84 00 00 00 00 00 66  2e 0f 1f 84 00 00 00 00  |.......f........|
+000001f0  00 66 2e 0f 1f 84 00 00  00 00 00 0f 1f 00 55 aa  |.f............U.|
+00000200  04 00 00 00 20 00 00 00  05 00 00 00 47 4e 55 00  |.... .......GNU.|
+00000210  02 00 01 c0 04 00 00 00  00 00 00 00 00 00 00 00  |................|
+00000220  01 00 01 c0 04 00 00 00  01 00 00 00 00 00 00 00  |................|
+00000230
+```
+Como se puede ver, el sector *.text* del **object** es la que se muestra en la **imagen**.
+El unico detalle es que el linker esta configurado para que escriba a partir de *0x7C00* y eso no se ve en el hexdump (hd).
 
 ### Grabar la imagen en un pendrive y probarla en una pc y subir una foto << **EN LA PC LO HAGO** >>
+Con el ejemplo de la carpeta *./01HelloWorld* tuvimos el siguente resultado:
+![hello world fail](./.img_infor/hello_fail.jpg)
+
+Luego de una charla en signal, usamos el ejemplo que esta en *x86-bare-metal-examples*, obteniendo el resultado esperado:
+![hello world](./.img_infor/Hello_world.jpg)
+
 
 ### ¿Para que se utiliza la opción --oformat binary en el linker?
 > *--oformat=output-format*
