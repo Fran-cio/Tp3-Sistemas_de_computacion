@@ -148,7 +148,7 @@ Contenido de la sección .debug_str:
 Como se puede ver, el sector *.text* del **object** es la que se muestra en la **imagen**.
 El unico detalle es que el linker esta configurado para que escriba a partir de *0x7C00* y eso no se ve en el hexdump (hd).
 
-### Grabar la imagen en un pendrive y probarla en una pc y subir una foto << **EN LA PC LO HAGO** >>
+### Grabar la imagen en un pendrive y probarla en una pc y subir una foto 
 Con el ejemplo de la carpeta *./01HelloWorld* tuvimos el siguente resultado:
 ![hello world fail](./.img_infor/hello_fail.jpg)
 
