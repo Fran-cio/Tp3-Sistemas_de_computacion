@@ -155,6 +155,22 @@ Con el ejemplo de la carpeta *./01HelloWorld* tuvimos el siguente resultado:
 Luego de una charla en signal, usamos el ejemplo que esta en *x86-bare-metal-examples*, obteniendo el resultado esperado:
 ![hello world](./.img_infor/Hello_world.jpg)
 
+Tambien en posible ver con ```sudo fdisk -l``` las distintas particiones correspondientes al MBR que quedan en el pendrive:
+```
+Disco /dev/sdb: 14,56 GiB, 15631122432 bytes, 30529536 sectores
+Modelo de disco: Cruzer Blade    
+Unidades: sectores de 1 * 512 = 512 bytes
+Tamaño de sector (lógico/físico): 512 bytes / 512 bytes
+Tamaño de E/S (mínimo/óptimo): 512 bytes / 512 bytes
+Tipo de etiqueta de disco: dos
+Identificador del disco: 0x0000841f
+
+Disposit.  Inicio   Comienzo      Final   Sectores Tamaño Id Tipo
+/dev/sdb1         1711276032 3927904045 2216628014     1T 1f desconocido
+/dev/sdb2              33823 1711309854 1711276032   816G  0 Vacía
+/dev/sdb3          254699008  254732830      33823  16,5M  0 Vacía
+/dev/sdb4                  0    2035455    2035456 993,9M 2e desconocido
+```
 
 ### ¿Para que se utiliza la opción --oformat binary en el linker?
 > *--oformat=output-format*
