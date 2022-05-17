@@ -182,9 +182,29 @@ Es decir, es posible especificar el formato de salida del archivo, en particular
 ---
 ## Desafío final: Modo protegido (Parte practica)
 ### Crear un código assembler que pueda pasar a modo protegido (sin macros).
-
+El codigo puede encontrarse en el repositorio en [entregable](./entregable/myProtectedModeNasm.asm)
+ 
+Para ejecutar utilizar ```./run myProtectedModeNasm ```
+ 
+Para ejecutar con gdb utilizar ```./run myProtectedModeNasm debug```
+ 
 ### ¿Cómo sería un programa que tenga dos descriptores de memoria diferentes, uno para cada segmento (código y datos) en espacios de memoria diferenciados?
+Todos los programas deberian tener separado el descriptor de datos del descriptor de codigo a menos que quiera utilzarse la memoria en modo plano.
+ 
+En el segmento de codigo irian todas las instrucciones y directivas que seran ejecutadas por el procesador, y pueden asignarse atributos particulares a este descriptor, los cuales determinan si el codigo es conforming y si este puede leerse.
+ 
+Por otra parte, en el segmento de datos no se pueden almacenar instrucciones ya que lo que se encuentra en esta porcion de la memoria no se puede ejecutar. Existen algunas especificaciones las cuales determinan si los datos seran de tipo stack o no, y si estos pueden escribirse.
 
 ### Cambiar los bits de acceso del segmento de datos para que sea de solo lectura, intentar escribir, ¿Que sucede? ¿Que debería suceder a continuación? (revisar el teórico) Verificarlo con gdb.
+Antes de realizar el practico, esperabamos que el sistema se detenga produciendo un halt o algo por el estilo.
+ 
+Luego de cambiar el bit de atributos en el segmento de datos nos encontramos que esto no era como esperabamos, sino que veiamos que la terminal parpadeaba indeterminadamente. 
+
+Se hipotetizaba que el sistema al encontrarse este conflicto, se rebooteaba constantemente. 
+
+Para poder validar esta hipotesis, se procedio a debugear con gdb. Se coloco un breakpoint en la posicion *0x7c00* y otro en la instruccion *lodsb*, mediante lo cual se observo que se consigue imprimir el mensaje en modo real, pero al momento de hacerlo en modo protegido el sistema encuentra un error y vuelve a bootear. 
 
 ### En modo protegido, ¿Con qué valor se cargan los registros de segmento? ¿Porque? 
+Los registros de segmento se cargan con valores de 32 bits porque en modo protegido podemos hacer uso de la segmentacion lo cual nos permite direccionar memoria de 32 bits. 
+
+Se carga en el registro de segmento de codigo (CS), el valor de offset dentro de la tabla GDT el cual indica donde se encuentra su descriptor, y en el resto de los descriptores (DS, ES, SS, FS, GS) se carga tambien el offset que indica donde se encuentra el descriptor de segmento de datos.

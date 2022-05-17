@@ -1,17 +1,3 @@
-%macro PUSH_EADX 0
-    push %eax
-    push %ebx
-    push %ecx
-    push %edx
-%endmacro
-
-%macro POP_EDAX 0
-    pop %edx
-    pop %ecx
-    pop %ebx
-    pop %eax
-%endmacro
-
 ;Inicio de sector de booteo
 [org 0x7c00]
     ;Limpio la consola
@@ -58,7 +44,7 @@ gdt_data:                  ; El  segmento descriptor de datos
                            ; Igual que el segmento de código 
                            ;ecepto por los flags.
                            ; type flags: (code)0 (expand down)0 
-                           ;(writable)0 (accessed)0 -> 0000b
+                           ;(writable)1 (accessed)0 -> 0010b
     dw 0xFFFF              ; Limite (bits 0 -15)
     dw 0x0                 ; Base (bits 0 -15)
     db 0x0                 ; Base (bits 16 -23)
